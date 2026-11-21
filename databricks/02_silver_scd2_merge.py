@@ -27,9 +27,7 @@ df_incoming = (
     .withColumn("lon_clean", F.expr("try_cast(lon as double)"))
     .withColumn("listed_date_clean", F.expr("try_cast(listed_date as date)"))
     .withColumn("scraped_at_ts", F.expr("try_cast(scraped_at as timestamp)"))
-    # استبعاد القيم الشاذة (مساحة أقل من 30 متر أو سعر <= 0)
     .filter((F.col("price_egp_clean") > 0) & (F.col("area_clean") >= 30))
-    # لو scraped_at مش تاريخ سليم، يبقى الصف مترحل: نصفر الأعمدة اللي اتأثرت
     .withColumn("is_shifted", F.col("scraped_at_ts").isNull())
     .withColumn("payment_method", F.when(F.col("is_shifted"), F.lit(None)).otherwise(F.col("payment_method")))
     .withColumn("broker_name", F.when(F.col("is_shifted"), F.lit(None)).otherwise(F.col("broker_name")))
