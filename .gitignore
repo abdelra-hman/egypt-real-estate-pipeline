@@ -1,0 +1,20 @@
+# Data & Checkpoints
+*.csv
+*.parquet
+_checkpoints/
+landing/
+scraper_state/
+
+# Python & Environments
+__pycache__/
+*.pyc
+.env
+venv/
+.DS_Store
+
+
+scraper/propertyfinder_scraper.py
+
+
+data/historical/*
+!data/historical/.gitkeep
